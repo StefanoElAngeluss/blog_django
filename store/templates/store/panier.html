@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container">
+        {% for commande in commandes %}
+            <h2>{{ commande.produit.nom }}</h2>
+            <img src="{% static commande.produit.thumbnail %}" alt="{{ commande.produit.nom }}" width="300">
+            <p>{{ commande.quantite }} dans le panier</p>
+        {% endfor %}
+        <div class="mb-4">
+            Annuler la commande :
+            <a href="{% url 'delete-panier' %}" class="btn btn-sm btn-danger">
+                Supprimer le panier
+            </a>
+        </div>
+
+    </div>
+
+{% endblock %}

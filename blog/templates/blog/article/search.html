@@ -1,0 +1,43 @@
+{% include 'blog/partials/list_article_haut.html' %}
+{% include 'blog/partials/navbar.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container column">
+        {% if query %}
+            <h1>Articles contient: {{ query }}</h1>
+            <h3>
+                {% with results.count as total_results %}*
+                    Trouvé {{ total_results }} article{{ total_results|pluralize }}
+                {% endwith %}
+            </h3>
+
+        {% for article in results %}
+            <div class="d-flex">
+                <div class="card mb-4 col-md-6">
+                    <a href="#!"><img class="card-img-top" src="{% static article.image %}" alt="image" /></a>
+                        <div class="card-body">
+                            <div class="small text-muted">
+                                <b>Publier le :</b>
+                                {{ article.publication }}</div>
+                            <h2 class="card-title">{{ article.titre }}</h2>
+                            <p class="card-text">{{ article.contenu|truncatechars:50 }}</p>
+                            <a class="btn btn-primary" href="{% url 'detail_article' article.slug %}">Voir l'article →</a>
+                        </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>Aucun article n'a ete trouver</p>
+        {% endfor %}
+            <p><a href="{% url 'article_search' %}">Rechercher encore</a></p>
+        {% else %}
+            <h1>Recherche pour article</h1>
+            <form method="GET">
+                {{ search_form.as_p }}
+                <input type="submit" value="Rechercher">
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% include 'blog/partials/list_article_bas.html' %}

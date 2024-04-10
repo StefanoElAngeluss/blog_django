@@ -1,0 +1,6 @@
+{
+  "python.analysis.typeCheckingMode": "basic",
+  "python.defaultInterpreterPath": "C:\\Users\\stefano\\AppData\\Local\\Programs\\Python\\Python312-32\\python.exe",
+  "python.analysis.autoImportCompletions": true,
+  "git.ignoreLimitWarning": true
+}

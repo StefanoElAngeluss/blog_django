@@ -1,0 +1,162 @@
+{% include 'blog/partials/list_article_haut.html' %}
+{% include 'blog/partials/navbar.html' %}
+{% load static %}
+
+    {% block content %}
+
+        <!-- Page header with logo and tagline-->
+        <header class="py-5 border-bottom mb-4" style="background-color:rgb(50 59 67) !important;">
+            <div class="container">
+                <div class="text-center my-5" style="color:rgb(218 228 237) !important;">
+                    <h1 class="fw-bolder">Bienvenue sur le Blog</h1>
+                    <p class="lead mb-5">Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. Check out the examples below for how you can remix and restyle it to your liking.</p>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'logout' %}" class="btn btn-outline-danger" style="margin-right:20px;">Déconnexion</a>
+                        <a class="btn btn-outline-primary" href="#">Profil utilisateur</a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-outline-primary">Connexion</a>
+                        <a href="{% url 'signup' %}" class="btn btn-outline-primary">S'inscrire</a>
+                    {% endif %}
+                    {% if user_connected %}
+
+                    {% else %}
+                        <a href="{% url 'blog' %}" class="btn btn-outline-primary">Retour à l'accueil</a>
+                    {% endif %}
+
+                </div>
+            </div>
+        </header>
+        <!-- Page content-->
+        <div class="container">
+            <div class="row">
+                <!-- Blog entries-->
+                <div class="col-lg-8">
+                    <!-- Featured blog post-->
+                    <div class="card mb-4" style="min-height: 200px;">
+                        <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
+                        <div class="card-body">
+                            <div class="small text-muted">January 1, 2023</div>
+                            <h2 class="card-title">Featured Post Title</h2>
+                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+                            <a class="btn btn-primary" href="#!">Read more →</a>
+                        </div>
+                    </div>
+                    <!-- Nested row for non-featured blog posts-->
+                    <div class="row">
+                        {% for article in articles %}
+                        <div class="col-lg-6 d-flex align-items-stretch">
+                            <!-- Blog post-->
+                            <div class="card mb-4">
+                                {% if article.image %}
+                                    <img src="{% static article.image %}" class="card-img-top" height="250" alt="{{ article.titre }}">
+                                {% else %}
+                                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="{{ article.titre }}">
+                                {% endif %}
+                                <div class="card-body d-flex flex-column">
+                                    <div class="small text-muted">
+                                        <b class="text-primary">Publier le :</b>
+                                        {{ article.publication }}
+                                    </div>
+                                    <h2 class="card-title h4">{{ article.titre }}</h2>
+                                    <p class="card-text">{{ article.contenu|safe|truncatewords:30 }}</p>
+                                    <a href="{% url 'detail_article' article.slug %}" class="btn btn-block btn-outline-primary mb-3 mt-auto">Voir l'article</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                            <li>
+                                Aucun article n'est disponible pour le moment.
+                            </li>
+                        {% endfor %}
+                    </div>
+                    <!-- Pagination-->
+                    {% include 'blog/partials/pagination.html' with page_obj=articles %}
+                </div>
+                <!-- Side widgets-->
+                <div class="col-lg-4">
+                    <!-- Search widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Search</div>
+                        <div class="card-body">
+                            <form action="{% url 'article_search' %}" method="GET">
+                                <div class="input-group">
+                                    <input name="query" class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                                    <button class="btn btn-primary" id="button-search" type="submit">Go!</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Categories widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Categories</div>
+                        <div class="card-body">
+                            <div class="row">
+                                {% for categorie in categories %}
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><a href="{% url 'categorie_article_list' categorie.slug %}">{{ categorie.nom }}</a></li>
+                                    </ul>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Side widget-->
+                    <div class="card mb-4">
+                        <div class="card-header">Side Widget</div>
+                        <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
+        </footer>
+
+    {% endblock %}
+
+{% include 'blog/partials/list_article_bas.html' %}
+
+{% comment %} {% include 'blog/partials/doctype_haut.html' %}
+{% include 'blog/partials/navbar.html' %}
+{% load static %}
+
+    {% block content %}
+        <div class="container">
+
+            <a href="{% url 'blog' %}" class="mt-5 btn btn-sm btn-primary">Retour à l'accueil</a>
+            <h1>Liste des articles</h1>
+
+            <div class="d-flex justify-content-start">
+                {% for article in articles %}
+                    <div class="card" style="width: 18rem; margin-right:20px;">
+                        {% if article.image %}
+                            <img src="{% static article.image %}" class="card-img-top" alt="{{ article.titre }}">
+                        {% else %}
+                            <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="{{ article.titre }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ article.titre }}</h5>
+                            <p class="card-text">
+                                {{ article.contenu|truncatechars:100 }}
+                            </p>
+                        </div>
+                        <a href="{% url 'detail_article' article.slug %}" class="btn  btn-block btn-outline-primary mb-3">Voir l'article</a>
+                        <div class="card-footer">
+                            <small class="text-muted">
+                                <b>Publier le :</b> {{ article.publication }}
+                            </small>
+                        </div>
+                    </div> {# fin card #}
+                {% empty %}
+                    <li>
+                        Aucun article n'est disponible pour le moment.
+                    </li>
+                {% endfor %}
+            </div> {# fin d-flex #}
+
+        </div> {# fin container #}
+    {% endblock %}
+
+{% include 'blog/partials/doctype_bas.html' %} {% endcomment %}

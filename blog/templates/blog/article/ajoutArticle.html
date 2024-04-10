@@ -1,0 +1,28 @@
+{% include 'blog/partials/list_article_haut.html' %}
+{% include 'blog/partials/navbar.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container mt-5">
+        {% if article %}
+            <h1>Mise à jour de l'article "{{ article.titre }}"</h1>
+        {% else %}
+            <h1>Ajouter un nouvel article</h1>
+        {% endif %}
+
+        <form action="." method="POST" class="mt-4" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.media }}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success">
+                {% if article %}
+                    Mettre à jour l'article
+                {% else %}
+                    Ajouter l'article
+                {% endif %}
+            </button>
+        </form>
+    </div>
+{% endblock %}
+
+{% include 'blog/partials/list_article_bas.html' %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Boutique {% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% for produit in produits %}
+            <div class="card mt-4 mb-4">
+                <div class="card-body">
+                    {% if produit.thumbnail %}
+                        <img src="{% static produit.thumbnail %}" class="card-img-top" alt="{{ produit.nom }}" style="max-width: 250px;">
+                        <a href="{{ produit.get_absolute_url }}" class="btn btn-sm btn-primary">Voir l'article</a>
+                    {% else %}
+                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="{{ produit.nom }}" style="max-width: 250px;">
+                    {% endif %}
+                    <h5 class="card-title">{{ produit.nom }}</h5>
+                    <p class="card-text">{{ produit.description }}</p>
+                    <p class="card-text">{{ produit.prix }} €</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
