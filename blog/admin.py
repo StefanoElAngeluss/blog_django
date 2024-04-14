@@ -5,9 +5,9 @@ from ckeditor.widgets import CKEditorWidget
 from blog.models import Article, Commentaire, Categorie
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('titre', 'auteur', 'status', 'tags', 'date_creation', 'publication')
+    list_display = ('titre', 'auteur', 'status', 'categorie', 'tags', 'date_creation', 'publication')
     list_filter = ('auteur', 'status', 'publication')
-    list_editable: List[str] = ['tags', 'status']
+    list_editable: List[str] = ['tags', 'status', 'categorie']
     ordering = ('auteur', 'status', 'publication')
     prepopulated_fields = {'slug': ('titre',)}
     search_fields = ('titre', 'contenu', 'status')

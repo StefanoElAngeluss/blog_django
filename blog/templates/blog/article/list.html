@@ -13,15 +13,16 @@
                     {% if user.is_authenticated %}
                         <a href="{% url 'logout' %}" class="btn btn-outline-danger" style="margin-right:20px;">Déconnexion</a>
                         <a class="btn btn-outline-primary" href="#">Profil utilisateur</a>
+                        <a href="{% url 'blog' %}" class="btn btn-outline-primary">Retour à l'accueil</a>
                     {% else %}
                         <a href="{% url 'login' %}" class="btn btn-outline-primary">Connexion</a>
                         <a href="{% url 'signup' %}" class="btn btn-outline-primary">S'inscrire</a>
                     {% endif %}
-                    {% if user_connected %}
+                    {% comment %} {% if user_connected %}
 
                     {% else %}
                         <a href="{% url 'blog' %}" class="btn btn-outline-primary">Retour à l'accueil</a>
-                    {% endif %}
+                    {% endif %} {% endcomment %}
 
                 </div>
             </div>
@@ -41,6 +42,12 @@
                             <a class="btn btn-primary" href="#!">Read more →</a>
                         </div>
                     </div>
+                    <p>
+                        {% if tag %}
+                            <h3 class="card-title" align="center">Liste des articles avec le tag "<strong class="text-success">{{ tag }}</strong>"</h3>
+                        {% endif %}
+                    </p>
+                    <hr>
                     <!-- Nested row for non-featured blog posts-->
                     <div class="row">
                         {% for article in articles %}
@@ -55,11 +62,24 @@
                                 <div class="card-body d-flex flex-column">
                                     <div class="small text-muted">
                                         <b class="text-primary">Publier le :</b>
-                                        {{ article.publication }}
+                                        {{ article.created_at }}
                                     </div>
                                     <h2 class="card-title h4">{{ article.titre }}</h2>
                                     <p class="card-text">{{ article.contenu|safe|truncatewords:30 }}</p>
+                                    <p></p>
                                     <a href="{% url 'detail_article' article.slug %}" class="btn btn-block btn-outline-primary mb-3 mt-auto">Voir l'article</a>
+                                </div>
+                                <div class="card-footer">
+                                    <span class="badge bg-secondary text-white p-2">
+                                        Tags :
+                                    </span>
+                                    {% for tag in article.tags.all %}
+                                        <a href="{% url 'tag_by_article_list' tag.slug %}" style="text-decoration: none;">
+                                            <span class="me-2">
+                                                #{{ tag.name }}{% if not forloop.last %},{% endif %}
+                                            </span>
+                                        </a>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>

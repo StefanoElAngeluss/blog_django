@@ -18,7 +18,7 @@
                             <div class="text-muted fst-italic mb-2">
                                 Créer le {{ article.created_at|date }}
                                 par
-                                <span class="text-primary text-uppercase fw-bold">
+                                <span class="text-primary text-capitalize fw-bold">
                                     {{ article.auteur }}
                                 </span>
                             </div>
@@ -41,6 +41,14 @@
                         <section class="mb-5">
                             <p class="card-text fs-5 mb-4">
                                 {{ article.contenu|safe }}
+                            </p>
+                            <p>
+                                <b>Tags:</b>
+                                {% if article.tags.exists %}
+                                    {% for tag in article.tags.all %}
+                                        <span class="badge bg-secondary text-capitalize p-2" style="font-size:0.9em;">{{ tag }}</span>
+                                    {% endfor %}
+                                {% endif %}
                             </p>
                         </section>
                     </article>
@@ -108,7 +116,7 @@
                                 {% for categorie in categories %}
                                 <div class="col-sm-6">
                                     <ul class="list-unstyled mb-0">
-                                        <li><a href="#!">{{ categorie.nom }}</a></li>
+                                        <li><a href="{% url 'categorie_article_list' categorie.slug %}">{{ categorie.nom }}</a></li>
                                     </ul>
                                 </div>
                                 {% endfor %}

@@ -1,0 +1,62 @@
+{% include 'blog/partials/list_article_haut.html' %}
+{% include 'blog/partials/navbar.html' %}
+
+    {% block content %}
+
+        <div class="container mt-4">
+            <h1>Profile Utilisateur</h1>
+            <p>
+                <b>Utilisateur :</b> {{ user }}
+            </p>
+            <p>
+                <b>Email :</b> {{ user.email }}
+            </p>
+            {% if user.is_superuser %}
+                <p>
+                    <b>Role :</b> {{ user }} est
+                    <span class="text-primary">Administrateur</span>
+                </p>
+            {% else %}
+                <p>
+                    <b>Role :</b> {{ user }} est
+                    <span class="text-secondary">Utilisteur</span>
+                </p>
+            {% endif %}
+
+        </div>
+
+        <div class="container">
+            <h1>Articles de l'utilisateur</h1>
+            {% if not user.article_count or user.commentaire_count %}
+                <p>
+                    <b>{{ user }} :</b> a publier
+                    <span class="text-primary">{{ article_count }}</span>
+                    article{{ article_count|pluralize }}
+                </p>
+
+            {% else %}
+                <p>
+                    <b>{{ user }} :</b> n'a pas publié d'articles
+                </p>
+            {% endif %}
+        </div>
+
+        <div class="container">
+            <h1>Commentaires de l'utilisateur</h1>
+            {% if not user.article_count or user.commentaire_count %}
+                <p>
+                    <b>{{ user }} :</b> a publier
+                    <span class="text-primary">{{ commentaire_count }}</span>
+                    commentaire{{ commentaire_count|pluralize }}
+                </p>
+
+            {% else %}
+                <p>
+                    <b>{{ user }} :</b> n'a pas publié de commentaires
+                </p>
+            {% endif %}
+        </div>
+
+    {% endblock %}
+
+{% include 'blog/partials/list_article_bas.html' %}

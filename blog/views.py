@@ -18,13 +18,24 @@ from blog.forms import CommentaireForm, SearchArticle, ArticleForm
 def index(request):
     return render(request, 'blog/index.html')
 
-def list_article(request, categorie=None):
+def about(request):
+    return render(request, 'blog/about.html')
+
+def contact(request):
+    return render(request, 'blog/contact.html')
+
+def list_article(request, categorie=None, tag_slug=None):
     articles = Article.publier.all()
     categories = Categorie.objects.all()
+    tag = None
     if categorie:
         categorie = get_object_or_404(Categorie, slug=categorie)
-        articles = Article.publier.filter(categorie=categorie).order_by('created_at')
-    paginator = Paginator(articles, 2)
+        articles = articles.filter(categorie=categorie).order_by('created_at')
+
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        articles = articles.filter(tags__in=[tag]).order_by('created_at')
+    paginator = Paginator(articles, 4)
     page = request.GET.get('page')
     try:
         articles = paginator.page(page)
@@ -36,6 +47,7 @@ def list_article(request, categorie=None):
         'articles': articles,
         'page': page,
         'categories': categories,
+        'tag': tag,
     }
 
     return render(request, 'blog/article/list.html', context)

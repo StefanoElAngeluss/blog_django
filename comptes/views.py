@@ -1,7 +1,15 @@
 from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.shortcuts import render, redirect
 
+from blog.models import Article, Commentaire
+
 User = get_user_model()
+
+def profile(request):
+    user = request.user
+    article_count = Article.objects.filter(auteur=user).count()
+    commentaire_count = Commentaire.objects.filter(auteur=user).count()
+    return render(request, 'comptes/profile.html', {'article_count': article_count, 'commentaire_count': commentaire_count})
 
 def signup(request):
     if request.method == "POST":
@@ -9,7 +17,7 @@ def signup(request):
         username = request.POST.get("username")
         password = request.POST.get("password")
         email = request.POST.get("email")
-        user = User.objects.create_user(username=username, email=email, password=password)
+        user = User.objects.create_user(username=username, email=email, password=password) # type: ignore
         user.save()
         if user:
             login(request, user)
