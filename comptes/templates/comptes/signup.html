@@ -22,7 +22,10 @@
                 <label for="password_confirmation">Confirmation du mot de passe</label>
                 <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" style="width: 400px">
             </p>
-            <button type="submit" class="btn btn-success">S'inscrire</button>
+            <div class="d-flex justify-content-start">
+                <button type="submit" class="btn btn-success me-3">S'inscrire</button>
+                <a href="{% url 'login' %}" class="btn btn-primary">Connexion</a>
+            </div>
         </form>
     </div>
 

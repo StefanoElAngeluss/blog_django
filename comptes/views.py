@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.shortcuts import render, redirect
+from django.contrib import messages
 
 from blog.models import Article, Commentaire
 
@@ -21,6 +22,7 @@ def signup(request):
         user.save()
         if user:
             login(request, user)
+            messages.success(request, f'Votre compte a bien été crée {username}. Vous pouvez maintenant vous connecter.')
             return redirect('blog')
 
     return render(request, 'comptes/signup.html')

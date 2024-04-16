@@ -14,7 +14,10 @@
                 <label for="password">Mot de passe</label>
                 <input type="password" name="password" id="password" class="form-control" style="width: 400px">
             </p>
-            <button type="submit" class="btn btn-success">Connexion</button>
+            <div class="d-flex justify-content-start">
+                <button type="submit" class="btn btn-success me-3">Connexion</button>
+                <a href="{% url 'signup' %}" class="btn btn-primary">S'inscrire</a>
+            </div>
         </form>
     </div>
 

@@ -79,7 +79,9 @@
                             <span class="text-warning">
                                 Utilisateur connecté :
                             </span>
-                                {{ user.username }}
+                                <span class="text-light">
+                                    {{ user.username|capfirst }}
+                                </span>
                         {% else %}
                             Utilisateur non connecté
                         {% endif %}

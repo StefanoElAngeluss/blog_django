@@ -55,10 +55,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'debug_toolbar', # Debug Toolbar
-    'ckeditor', # CKEditor
     'taggit', # Taggit
-
+    'ckeditor', # CKEditor
+    'debug_toolbar', # Debug Toolbar
+    # 'django_cookie_control', # Cookie Control
     'django.contrib.postgres', # PostgreSQL
 
     'blog.apps.BlogConfig', # blog
@@ -160,3 +160,12 @@ STATICFILES_DIRS = (
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# DEFAULT if missing:
+# COOKIE_CONTROL_REQUIRED_COOKIES = [
+#     'csrftoken',
+#     'django_language',
+#     'sessionid',
+#     'django_privacy_mgmt_preferences',
+#     'AWSALB'
+# ]

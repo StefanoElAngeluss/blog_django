@@ -7,6 +7,13 @@
         <!-- Page header with logo and tagline-->
         <header class="py-5 border-bottom mb-4" style="background-color:rgb(50 59 67) !important;">
             <div class="container">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}" align="center">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
                 <div class="text-center my-5" style="color:rgb(218 228 237) !important;">
                     <h1 class="fw-bolder">Bienvenue sur le Blog</h1>
                     <p class="lead mb-5">Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. Check out the examples below for how you can remix and restyle it to your liking.</p>

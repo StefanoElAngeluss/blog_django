@@ -14,6 +14,7 @@ from django.contrib.postgres.search import (
 from taggit.models import Tag
 from blog.models import Article, Categorie, Commentaire
 from blog.forms import CommentaireForm, SearchArticle, ArticleForm
+from django.contrib import messages
 
 def index(request):
     return render(request, 'blog/index.html')
@@ -103,11 +104,12 @@ def article_search(request):
 
 def ajouter_article(request):
     if request.method=='POST':
-        form = ArticleForm(request.POST or None, request.FILES or None)
+        form = ArticleForm(request.POST or None, request.FILES or None, user=request.user)
         if form.is_valid():
             obj = form.save(commit=False)
             obj.auteur = request.user
             obj.save()
+            messages.success(request, f'Votre article {obj.titre} a bien été crée et sera publiée après validation par l\'administrateur.')
             return redirect('list_article')
     else:
         form = ArticleForm()
