@@ -36,17 +36,9 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 
 # Comptes
-AUTH_USER_MODEL = "comptes.Acheteur"
-
-# CKEditor
-CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
-SILENCED_SYSTEM_CHECKS = ["ckeditor.W001"]
-
-# Taggit
-# TAGGIT_CASE_INSENSITIVE = True
+# AUTH_USER_MODEL = "comptes.Acheteur"
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -58,12 +50,14 @@ INSTALLED_APPS = [
     'taggit', # Taggit
     'ckeditor', # CKEditor
     'debug_toolbar', # Debug Toolbar
-    # 'django_cookie_control', # Cookie Control
     'django.contrib.postgres', # PostgreSQL
+    'crispy_forms', # Crispy Forms
+    'crispy_bootstrap5', # Crispy Bootstrap 5 Forms
 
     'blog.apps.BlogConfig', # blog
-    'store.apps.StoreConfig', # store
-    'comptes.apps.ComptesConfig', # comptes
+    # 'store.apps.StoreConfig', # store
+    'users.apps.UsersConfig', # users
+    # 'comptes.apps.ComptesConfig', # comptes
 ]
 
 MIDDLEWARE = [
@@ -99,7 +93,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'main.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
@@ -113,7 +106,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -161,11 +153,13 @@ STATICFILES_DIRS = (
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# DEFAULT if missing:
-# COOKIE_CONTROL_REQUIRED_COOKIES = [
-#     'csrftoken',
-#     'django_language',
-#     'sessionid',
-#     'django_privacy_mgmt_preferences',
-#     'AWSALB'
-# ]
+# CKEditor
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+SILENCED_SYSTEM_CHECKS = ["ckeditor.W001"]
+
+# Crispy Forms
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+LOGIN_REDIRECT_URL = 'blog:index'
+LOGIN_URL = 'login'

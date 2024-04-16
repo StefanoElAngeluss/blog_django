@@ -1,0 +1,111 @@
+{% comment %} <nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <span class="navbar-brand" href="{% url 'blog' %}">Mon Blog</span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'blog' %}">Accueil</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'blog' %}">Blog</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'store' %}">Boutique</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {% if user.is_authenticated %}
+                    Utilisateur connecté : {{ user.username }}
+                {% else %}
+                    Utilisateur non connecté
+                {% endif %}
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="dropdown-item" href="#">Another action</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </li>
+                <li>
+                    {% if user.is_authenticated %}
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a href="{% url 'logout' %}" class="dropdown-item text-danger">Déconnexion</a>
+                    </li>
+                    {% else %}
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a href="{% url 'login' %}" class="dropdown-item text-primary">Connexion</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'signup' %}" class="dropdown-item text-primary">S'inscrire</a>
+                    </li>
+                    {% endif %}
+                </li>
+            </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled">Disabled</a>
+            </li>
+        </ul>
+        <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+        </div>
+    </div>
+</nav> {% endcomment %}
+
+<!-- Responsive navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#!">Start Bootstrap</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="{% url 'blog' %}">Accueil</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'blog_about' %}">Á Propos</a></li>
+                {% comment %} <li class="nav-item"><a class="nav-link" href="{% url 'store' %}">Boutique</a></li> {% endcomment %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'blog_contact' %}">Contact</a></li>
+                <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'ajouter_article' %}">Ajouter un article</a></li>
+                <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'blog' %}">Blog</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {% if user.is_authenticated %}
+                            <span class="text-warning">
+                                Utilisateur connecté :
+                            </span>
+                                <span class="text-light">
+                                    {{ user.username|capfirst }}
+                                </span>
+                        {% else %}
+                            Utilisateur non connecté
+                        {% endif %}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="navbarDropdown">
+                        {% if user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'profile' %}" class="dropdown-item text-danger">Profile</a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a href="{% url 'logout' %}" class="dropdown-item text-danger">Déconnexion</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{% url 'connexion' %}" class="dropdown-item text-primary">Connexion</a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a href="{% url 'inscription' %}" class="dropdown-item text-primary">S'inscrire</a>
+                        </li>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -39,7 +39,7 @@
                     {% else %}
                     <li><hr class="dropdown-divider"></li>
                     <li>
-                        <a href="{% url 'login' %}" class="dropdown-item text-primary">Connexion</a>
+                        <a href="{% url 'connexion' %}" class="dropdown-item text-primary">Connexion</a>
                     </li>
                     <li>
                         <a href="{% url 'signup' %}" class="dropdown-item text-primary">S'inscrire</a>
@@ -69,7 +69,7 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link" href="{% url 'blog' %}">Accueil</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'blog_about' %}">Á Propos</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'store' %}">Boutique</a></li>
+                {% comment %} <li class="nav-item"><a class="nav-link" href="{% url 'store' %}">Boutique</a></li> {% endcomment %}
                 <li class="nav-item"><a class="nav-link" href="{% url 'blog_contact' %}">Contact</a></li>
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'ajouter_article' %}">Ajouter un article</a></li>
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'blog' %}">Blog</a></li>
@@ -97,11 +97,11 @@
                         </li>
                     {% else %}
                         <li>
-                            <a href="{% url 'login' %}" class="dropdown-item text-primary">Connexion</a>
+                            <a href="{% url 'connexion' %}" class="dropdown-item text-primary">Connexion</a>
                         </li>
                         <li><hr class="dropdown-divider"></li>
                         <li>
-                            <a href="{% url 'signup' %}" class="dropdown-item text-primary">S'inscrire</a>
+                            <a href="{% url 'inscription' %}" class="dropdown-item text-primary">S'inscrire</a>
                         </li>
                     {% endif %}
                 </li>
