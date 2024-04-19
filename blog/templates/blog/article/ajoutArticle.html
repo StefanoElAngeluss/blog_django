@@ -3,26 +3,20 @@
 {% load static %}
 
 {% block content %}
-    <div class="container mt-5">
-        {% if article %}
-            <h1>Mise à jour de l'article "{{ article.titre }}"</h1>
-        {% else %}
-            <h1>Ajouter un nouvel article</h1>
-        {% endif %}
-
-        <form action="." method="POST" class="mt-4" enctype="multipart/form-data">
+<div class="container mt-5">
+    <h1 class="mt-4" align="center">Ajouter un nouvel article</h1>
+    <div class="row">
+        <div class="d-flex justify-content-center col-xl-12 col-md-6 col-sm-8">
+        <form method="POST" class="mt-4" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.media }}
             {{ form.as_p }}
             <button type="submit" class="btn btn-success">
-                {% if article %}
-                    Mettre à jour l'article
-                {% else %}
-                    Ajouter l'article
-                {% endif %}
+                Ajouter l'article
             </button>
         </form>
     </div>
+</div>
 {% endblock %}
 
 {% include 'blog/partials/list_article_bas.html' %}

@@ -1,4 +1,6 @@
+from email.mime import image
 from django.shortcuts import redirect, render, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import (
     EmptyPage,
     PageNotAnInteger,
@@ -10,7 +12,6 @@ from django.contrib.postgres.search import (
     # SearchRank,
     TrigramSimilarity,
 )
-
 from taggit.models import Tag
 from blog.models import Article, Categorie, Commentaire
 from blog.forms import CommentaireForm, SearchArticle, ArticleForm
@@ -20,10 +21,13 @@ def index(request):
     return render(request, 'blog/index.html')
 
 def about(request):
-    return render(request, 'blog/about.html')
+    return render(request, 'blog/about.html', {
+        'title': 'Á propos',})
 
 def contact(request):
-    return render(request, 'blog/contact.html')
+    return render(request, 'blog/contact.html', {
+        'title': 'Contact',
+    })
 
 def list_article(request, categorie=None, tag_slug=None):
     articles = Article.publier.all()
@@ -104,7 +108,7 @@ def article_search(request):
 
 def ajouter_article(request):
     if request.method=='POST':
-        form = ArticleForm(request.POST or None, request.FILES or None, user=request.user)
+        form = ArticleForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             obj = form.save(commit=False)
             obj.auteur = request.user
@@ -121,7 +125,21 @@ def modifier_article(request, article_id):
         form = ArticleForm(request.POST or None, request.FILES or None, instance=article)
         if form.is_valid():
             form.save()
+            messages.success(request, f'Votre article {article.titre} a bien été modifier.')
             return redirect('list_article')
     else:
+        formatted_auteur = article.auteur if article.auteur else article.auteur
         form = ArticleForm(instance=article)
-    return render(request, 'blog/article/modifierArticle.html', {'form': form})
+    return render(request, 'blog/article/modifierArticle.html', {'form': form, 'formatted_auteur': formatted_auteur})
+
+def supprimer_article(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    if request.method == 'POST':
+        # Supprimer l'image du système de fichiers
+        if article.image:
+            article.image.delete()
+        # Supprimer l'article de la base de données
+        article.delete()
+        messages.success(request, f'Votre article {article.titre} a bien été supprimer.')
+        return redirect('list_article')  # Rediriger vers la page d'accueil après la suppression
+    return render(request, 'blog/article/supprimer_article.html', {'article': article})

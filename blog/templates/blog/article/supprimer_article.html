@@ -1,0 +1,22 @@
+{% include 'blog/partials/list_article_haut.html' %}
+{% include 'blog/partials/navbar.html' %}
+
+{% block content %}
+
+<header class="masthead d-flex align-items-center">
+    <div class="container px-4 px-lg-5 text-center">
+        <h1 class="mt-4" align="center">Supprimer l'article {{ article.titre }}</h1>
+        <h3>Confirmez-vous la suppression de l'article "{{ article.titre }}" ?</h3>
+        <form method="post">
+            {% csrf_token %}
+            <button class="btn btn-outline-danger" type="submit">Confirmer</button>
+            <a href="{% url 'detail_article' article.slug %}" class="btn btn-outline-secondary">
+                Annuler
+            </a>
+        </form>
+    </div>
+</header>
+
+{% endblock %}
+
+{% include 'blog/partials/list_article_bas.html' %}

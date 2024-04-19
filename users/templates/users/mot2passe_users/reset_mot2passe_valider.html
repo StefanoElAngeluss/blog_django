@@ -1,0 +1,15 @@
+{% include 'users/partials/users_haut.html' %}
+{% include 'base/navbar.html' %}
+{% load crispy_forms_tags %}
+
+    {% block content %}
+
+        <div class="alert alert-info pt-3 fs-5" align="center">
+            <small class="text-muted">
+                Un email a été envoyé à votre adresse. Vous allez recevoir un lien pour définir un nouveau mot de passe.
+            </small>
+        </div>
+
+    {% endblock content %}
+
+{% include 'users/partials/users_bas.html' %}

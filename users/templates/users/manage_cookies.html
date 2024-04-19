@@ -1,0 +1,23 @@
+<form method="post">
+    {% csrf_token %}
+    <div class="container mt-5">
+        <h1>Préférences de cookies</h1>
+        <label><input type="checkbox" name="essential_accepted" {% if cookie_preferences.essential_accepted %}checked{% endif %}> Cookies essentiels</label><br>
+        <label><input type="checkbox" name="performance_accepted" {% if cookie_preferences.performance_accepted %}checked{% endif %}> Cookies de performance</label><br>
+        <label><input type="checkbox" name="functionality_accepted" {% if cookie_preferences.functionality_accepted %}checked{% endif %}> Cookies de fonctionnalité</label><br>
+        <label><input type="checkbox" name="tracking_accepted" {% if cookie_preferences.tracking_accepted %}checked{% endif %}> Cookies de suivi</label><br>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="essential-tab" data-bs-toggle="tab" data-bs-target="#essential" type="button" role="tab" aria-controls="essential" aria-selected="true">Essentiels</button>
+            </li>
+            <!-- Ajoutez des onglets pour les autres types de cookies -->
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="essential" role="tabpanel" aria-labelledby="essential-tab">
+                <p>{{ cookie_preferences.essential_text }}</p>
+            </div>
+            <!-- Ajoutez d'autres div pour afficher le texte des autres types de cookies -->
+        </div>
+        <button type="submit">Enregistrer</button>
+    </div>
+</form>

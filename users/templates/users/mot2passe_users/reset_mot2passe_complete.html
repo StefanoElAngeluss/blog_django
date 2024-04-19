@@ -1,0 +1,16 @@
+{% include 'users/partials/users_haut.html' %}
+{% include 'base/navbar.html' %}
+{% load crispy_forms_tags %}
+
+    {% block content %}
+
+        <div class="alert alert-info pt-3 fs-5" align="center">
+            <small class="text-muted">
+                Votre mot de passe a été correctement défini.
+                <a class="btn btn-outline-primary" href="{% url 'connexion' %}">Se connecter</a>
+            </small>
+        </div>
+
+    {% endblock content %}
+
+{% include 'users/partials/users_bas.html' %}

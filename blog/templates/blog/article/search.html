@@ -7,8 +7,11 @@
         {% if query %}
             <h1>Articles contient: {{ query }}</h1>
             <h3>
-                {% with results.count as total_results %}*
-                    Trouvé {{ total_results }} article{{ total_results|pluralize }}
+                {% with results.count as total_results %}
+                    Votre recherche à trouvé
+                    <b class="text-primary">({{ total_results }})</b>
+                    article
+                    {{ total_results|pluralize }}
                 {% endwith %}
             </h3>
 
@@ -21,7 +24,7 @@
                                 <b>Publier le :</b>
                                 {{ article.publication }}</div>
                             <h2 class="card-title">{{ article.titre }}</h2>
-                            <p class="card-text">{{ article.contenu|truncatechars:50 }}</p>
+                            <p class="card-text">{{ article.contenu|truncatechars:50|safe }}</p>
                             <a class="btn btn-primary" href="{% url 'detail_article' article.slug %}">Voir l'article →</a>
                         </div>
                 </div>

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from unittest.mock import Base
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -85,7 +86,6 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
-
             ],
         },
     },
@@ -161,5 +161,20 @@ SILENCED_SYSTEM_CHECKS = ["ckeditor.W001"]
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-LOGIN_REDIRECT_URL = 'blog:index'
-LOGIN_URL = 'login'
+# Login et redirection login
+LOGIN_REDIRECT_URL = 'blog'
+LOGIN_URL = 'connexion'
+
+# Email de réinitialisation et de confirmation du mot de passe
+if DEBUG:
+    EMAIL_HOST = '127.0.0.1'
+    EMAIL_HOST_USER = ''
+    EMAIL_HOST_PASSWORD = ''
+    EMAIL_PORT = 1025
+    EMAIL_USE_TLS = False
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'xh4Pp@example.com'
+# EMAIL_HOST_PASSWORD = 'xjwqkqzqfxzqzjih'

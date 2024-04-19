@@ -1,5 +1,5 @@
-from django import forms
 # from ckeditor.widgets import CKEditorWidget
+from django import forms
 from blog.models import Article, Categorie, Commentaire
 from django.contrib.auth import get_user_model
 

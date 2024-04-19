@@ -11,5 +11,20 @@
         <script>
             CKEDITOR.replace('contenu');
         </script>
+        <!-- Inclure jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!-- Script JavaScript pour la confirmation -->
+        <script>
+            $(document).ready(function() {
+                $('#logout-link').click(function(event) {
+                    event.preventDefault(); // Empêcher le lien de déclencher la déconnexion directement
+
+                    // Afficher la boîte de dialogue de confirmation
+                    if (confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
+                        window.location.href = $(this).attr('href'); // Rediriger vers la vue de déconnexion
+                    }
+                });
+            });
+        </script>
     </body>
 </html>

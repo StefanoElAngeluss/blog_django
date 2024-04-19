@@ -1,0 +1,9 @@
+{% load crispy_forms_tags %}
+{% block content %}
+    <h2>Vous avez bien été déconnecter !</h2>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            Vous avez un compte ? <a class="ml-2" href="{% url 'connexion' %}">Se connecter</a>
+        </small>
+    </div>
+{% endblock content %}

@@ -1,7 +1,8 @@
+from users.forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.contrib.auth import logout
 from django.contrib import messages
-from users.forms import UserRegisterForm
 
 # Create your views here.
 def inscription(request):
@@ -11,11 +12,34 @@ def inscription(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Votre compte a bien été crée {username}. Vous pouvez maintenant vous connecter.')
-            return redirect('connexion')
+            return redirect('blog')
     else:
         form = UserRegisterForm()
     return render(request, 'users/pages/inscription.html', {'form': form})
 
+def logout_view(request):
+    messages.success(request, f'Vous avez bien été déconnecté et vous pouvez vous reconnecter à nouveau.')
+    logout(request)
+    return redirect('blog')  # Rediriger vers la page de connexion après déconnexion
+
 @login_required
 def profile(request):
-    return render(request, 'users/pages/profile.html')
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST,
+                                   request.FILES,
+                                   instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Votre profil a bien été mis à jour.')
+            return redirect('profile')
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+
+    context = {
+        'u_form': u_form,
+        'p_form': p_form
+    }
+    return render(request, 'users/pages/profile.html', context)

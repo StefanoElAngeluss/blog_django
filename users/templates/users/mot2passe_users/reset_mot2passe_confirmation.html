@@ -1,0 +1,30 @@
+{% include 'users/partials/users_haut.html' %}
+{% include 'base/navbar.html' %}
+{% load crispy_forms_tags %}
+
+    {% block content %}
+
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-sm-8">
+
+                    <div class="content-section">
+                        <form method="POST">
+                            <fieldset class="form-group">
+                                <legend class="border-bottom mb-4">Confirmer la réinitialsation du mot de passe</legend>
+                                {% csrf_token %}
+                                {{ form|crispy }}
+                            </fieldset>
+                            <div class="form-group">
+                                <button class="btn btn-outline-primary" type="submit">Confirmer le nouveau mot de passe</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    {% endblock %}
+
+{% include 'users/partials/users_bas.html' %}
