@@ -1,6 +1,4 @@
-from email.mime import image
 from django.shortcuts import redirect, render, get_object_or_404
-from django.contrib.auth.decorators import login_required
 from django.core.paginator import (
     EmptyPage,
     PageNotAnInteger,
@@ -16,18 +14,6 @@ from taggit.models import Tag
 from blog.models import Article, Categorie, Commentaire
 from blog.forms import CommentaireForm, SearchArticle, ArticleForm
 from django.contrib import messages
-
-def index(request):
-    return render(request, 'blog/index.html')
-
-def about(request):
-    return render(request, 'blog/about.html', {
-        'title': 'Á propos',})
-
-def contact(request):
-    return render(request, 'blog/contact.html', {
-        'title': 'Contact',
-    })
 
 def list_article(request, categorie=None, tag_slug=None):
     articles = Article.publier.all()

@@ -29,11 +29,11 @@
                             <!-- Post categories-->
                             <a class="badge bg-success text-decoration-none link-light" href="#!">{{ article.categorie.nom }}</a>
                             <div class="float-end">
-                                <a href="{% url 'list_article' %}" class="btn btn-sm btn-primary">Retour à la liste des articles</a>
+                                <a href="{% url 'blog:list_article' %}" class="btn btn-sm btn-primary">Retour à la liste des articles</a>
                                 {% if user.is_authenticated and user == article.auteur %}
-                                    <a href="{% url 'modifier_article' article.id %}" class="btn btn-sm btn-warning">Modifier l'article</a>
+                                    <a href="{% url 'blog:modifier_article' article.id %}" class="btn btn-sm btn-warning">Modifier l'article</a>
                                     {% comment %} supprimer l'aticle {% endcomment %}
-                                    <a href="{% url 'supprimer_article' article.id %}" class="btn btn-sm btn-danger">Supprimer l'article</a>
+                                    <a href="{% url 'blog:supprimer_article' article.id %}" class="btn btn-sm btn-danger">Supprimer l'article</a>
                                 {% endif %}
                             </div>
                         </header>
@@ -124,7 +124,7 @@
                                 {% for categorie in categories %}
                                 <div class="col-sm-6">
                                     <ul class="list-unstyled mb-0">
-                                        <li><a href="{% url 'categorie_article_list' categorie.slug %}">{{ categorie.nom }}</a></li>
+                                        <li><a href="{% url 'blog:categorie_article_list' categorie.slug %}">{{ categorie.nom }}</a></li>
                                     </ul>
                                 </div>
                                 {% endfor %}

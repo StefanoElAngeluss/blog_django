@@ -1,6 +1,13 @@
 from django.shortcuts import render
-# from django.http import HttpResponse
 
-# def accueil(request):
-#   message = "Salut tous le monde, Voici l'accueil de mon site!"
-#   return HttpResponse(message)
+def index(request):
+    return render(request, 'blog/index.html')
+
+def about(request):
+    return render(request, 'blog/about.html', {
+        'title': 'Á propos',})
+
+def contact(request):
+    return render(request, 'blog/contact.html', {
+        'title': 'Contact',
+    })

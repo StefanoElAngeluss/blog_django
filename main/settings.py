@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
 from pathlib import Path
-from unittest.mock import Base
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-=n^=o4fgta1iom^2t!(euf^^6c1!fmihjsp6(a)dy+!ezqfxxb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 INTERNAL_IPS = [
     'localhost',
@@ -48,17 +48,21 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'taggit', # Taggit
-    'ckeditor', # CKEditor
-    'debug_toolbar', # Debug Toolbar
-    'django.contrib.postgres', # PostgreSQL
-    'crispy_forms', # Crispy Forms
-    'crispy_bootstrap5', # Crispy Bootstrap 5 Forms
+    # Utilitaires
+    'taggit',
+    'ckeditor',
+    'debug_toolbar',
+    'django.contrib.postgres',
+    'crispy_forms',
+    'crispy_bootstrap5',
 
-    'blog.apps.BlogConfig', # blog
-    # 'store.apps.StoreConfig', # store
-    'users.apps.UsersConfig', # users
-    # 'comptes.apps.ComptesConfig', # comptes
+    # Applications
+    'blog.apps.BlogConfig',
+    # 'store.apps.StoreConfig',
+    'music.apps.MusicConfig',
+
+    # Utilisateurs
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
@@ -72,7 +76,7 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
-ROOT_URLCONF = 'blog.urls'
+ROOT_URLCONF = 'main.urls'
 
 TEMPLATES = [
     {
@@ -141,12 +145,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'static'
 
-STATICFILES_DIRS = (
-    BASE_DIR / '',
-)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

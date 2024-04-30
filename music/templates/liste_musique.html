@@ -1,0 +1,40 @@
+{% include 'partials/base_haut.html' %}
+{% include 'base/navbar.html' %}
+{% load static %}
+
+    {% block content %}
+
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-sm-8">
+
+                    <div class="content-section">
+                        {% if request.user.is_authenticated %}
+                            <h1>Liste des musiques</h1>
+                            <a href="{% url 'music:ajouter_musique' %}" class="btn btn-sm btn-primary">Ajouter une musique</a>
+                                {% for musique in musiques %}
+                                    {% if musique.fichier %}
+                                    <hr>
+                                            <p>{{ musique.titre }} - {{ musique.artiste }}</p>
+                                            <p>
+                                                <audio controls>
+                                                    <source src="{{ musique.fichier.url }}" type="audio/mp3">
+                                                    Your browser does not support the audio element.
+                                                </audio>
+                                            </p>
+                                            <a href="{% url 'music:supprimer_musique' musique.id %}" class="btn btn-sm btn-danger">Supprimer</a>
+                                            <br>
+                                    {% else %}
+                                        <li>Pas de musique</li>
+                                    {% endif %}
+                                {% endfor %}
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    {% endblock %}
+
+{% include 'partials/base_bas.html' %}

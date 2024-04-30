@@ -39,7 +39,7 @@
                     {% else %}
                     <li><hr class="dropdown-divider"></li>
                     <li>
-                        <a href="{% url 'connexion' %}" class="dropdown-item text-primary">Connexion</a>
+                        <a href="{% url 'login' %}" class="dropdown-item text-primary">Connexion</a>
                     </li>
                     <li>
                         <a href="{% url 'signup' %}" class="dropdown-item text-primary">S'inscrire</a>
@@ -71,6 +71,21 @@
                 <li class="nav-item"><a class="nav-link" href="{% url 'blog_about' %}">Á Propos</a></li>
                 {% comment %} <li class="nav-item"><a class="nav-link" href="{% url 'store' %}">Boutique</a></li> {% endcomment %}
                 <li class="nav-item"><a class="nav-link" href="{% url 'blog_contact' %}">Contact</a></li>
+                {% if request.user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="text-warning">
+                            Musique
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="navbarDropdown">
+                        <li class="nav-item">
+                            <a class="dropdown-item text-primary" href="{% url 'music:liste_musique' %}">Liste des sons</a>
+                            <a class="dropdown-item text-primary" href="{% url 'music:ajouter_musique' %}">Ajouter un son</a>
+                        </li>
+                    </ul>
+                </li>
+                {% endif %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <span class="text-warning">
@@ -79,11 +94,11 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="navbarDropdown">
                         <li class="nav-item">
-                            <a class="dropdown-item text-primary" href="{% url 'list_article' %}">Liste des articles</a>
+                            <a class="dropdown-item text-primary" href="{% url 'blog:list_article' %}">Liste des articles</a>
                         </li>
                         <li><hr class="dropdown-divider"></li>
                         <li class="nav-item">
-                            <a class="dropdown-item text-primary" href="{% url 'ajouter_article' %}">Ajouter un article</a>
+                            <a class="dropdown-item text-primary" href="{% url 'blog:ajouter_article' %}">Ajouter un article</a>
                         </li>
                     </ul>
                 </li>
@@ -103,19 +118,19 @@
                     <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="navbarDropdown">
                     {% if user.is_authenticated %}
                         <li>
-                            <a href="{% url 'profile' %}" class="dropdown-item text-primary">Profile</a>
+                            <a href="{% url 'users:profile' %}" class="dropdown-item text-primary">Profile</a>
                         </li>
                         <li><hr class="dropdown-divider"></li>
                         <li>
-                            <a href="{% url 'logout' %}" id="logout-link" class="dropdown-item text-danger">Se déconnecter</a>
+                            <a href="{% url 'users:logout' %}" id="logout-link" class="dropdown-item text-danger">Se déconnecter</a>
                         </li>
                     {% else %}
                         <li>
-                            <a href="{% url 'connexion' %}" class="dropdown-item text-primary">Connexion</a>
+                            <a href="{% url 'users:connexion' %}" class="dropdown-item text-primary">Connexion</a>
                         </li>
                         <li><hr class="dropdown-divider"></li>
                         <li>
-                            <a href="{% url 'inscription' %}" class="dropdown-item text-primary">S'inscrire</a>
+                            <a href="{% url 'users:inscription' %}" class="dropdown-item text-primary">S'inscrire</a>
                         </li>
                     {% endif %}
                     </ul>

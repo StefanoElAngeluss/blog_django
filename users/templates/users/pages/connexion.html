@@ -1,7 +1,6 @@
 {% include 'users/partials/users_haut.html' %}
 {% include 'base/navbar.html' %}
 {% load crispy_forms_tags %}
-{% load static %}
 
     {% block content %}
 
@@ -22,13 +21,13 @@
                                 </button>
                                 <small>
                                     Mot de passe perdu ?
-                                    <a class="ml-2" href="{% url 'reset_mot2passe' %}">Cliquez ici</a>
+                                    <a class="ml-2" href="{% url 'users:reset_mot2passe' %}">Cliquez ici</a>
                                 </small>
                             </div>
                         </form>
                         <div class="border-top pt-3">
                             <small class="text-muted">
-                                Pas encore membre ? <a class="ml-2" href="{% url 'inscription' %}">S'inscrire maintenant</a>
+                                Pas encore membre ? <a class="ml-2" href="{% url 'users:inscription' %}">S'inscrire maintenant</a>
                             </small>
                         </div>
                     </div>

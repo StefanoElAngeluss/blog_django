@@ -18,12 +18,12 @@
                     <h1 class="fw-bolder">Bienvenue sur le Blog</h1>
                     <p class="lead mb-5">Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. Check out the examples below for how you can remix and restyle it to your liking.</p>
                     {% if user.is_authenticated %}
-                        <a href="{% url 'logout' %}" class="btn btn-outline-danger" style="margin-right:20px;">Déconnexion</a>
+                        <a href="{% url 'users:logout' %}" class="btn btn-outline-danger" style="margin-right:20px;">Déconnexion</a>
                         <a class="btn btn-outline-primary" href="#">Profil utilisateur</a>
                         <a href="{% url 'blog' %}" class="btn btn-outline-primary">Retour à l'accueil</a>
                     {% else %}
-                        <a href="{% url 'login' %}" class="btn btn-outline-primary">Connexion</a>
-                        <a href="{% url 'signup' %}" class="btn btn-outline-primary">S'inscrire</a>
+                        <a href="{% url 'users:login' %}" class="btn btn-outline-primary">Connexion</a>
+                        <a href="{% url 'users:signup' %}" class="btn btn-outline-primary">S'inscrire</a>
                     {% endif %}
                     {% comment %} {% if user_connected %}
 
@@ -74,14 +74,14 @@
                                     <h2 class="card-title h4">{{ article.titre }}</h2>
                                     <p class="card-text">{{ article.contenu|safe|truncatewords:30 }}</p>
                                     <p></p>
-                                    <a href="{% url 'detail_article' article.slug %}" class="btn btn-block btn-outline-primary mb-3 mt-auto">Voir l'article</a>
+                                    <a href="{% url 'blog:detail_article' article.slug %}" class="btn btn-block btn-outline-primary mb-3 mt-auto">Voir l'article</a>
                                 </div>
                                 <div class="card-footer">
                                     <span class="badge bg-secondary text-white p-2">
                                         Tags :
                                     </span>
                                     {% for tag in article.tags.all %}
-                                        <a href="{% url 'tag_by_article_list' tag.slug %}" style="text-decoration: none;">
+                                        <a href="{% url 'blog:tag_by_article_list' tag.slug %}" style="text-decoration: none;">
                                             <span class="me-2">
                                                 #{{ tag.name }}{% if not forloop.last %},{% endif %}
                                             </span>
@@ -105,7 +105,7 @@
                     <div class="card mb-4">
                         <div class="card-header">Search</div>
                         <div class="card-body">
-                            <form action="{% url 'article_search' %}" method="GET">
+                            <form action="{% url 'blog:article_search' %}" method="GET">
                                 <div class="input-group">
                                     <input name="query" class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
                                     <button class="btn btn-primary" id="button-search" type="submit">Go!</button>
@@ -121,7 +121,7 @@
                                 {% for categorie in categories %}
                                 <div class="col-sm-6">
                                     <ul class="list-unstyled mb-0">
-                                        <li><a href="{% url 'categorie_article_list' categorie.slug %}">{{ categorie.nom }}</a></li>
+                                        <li><a href="{% url 'blog:categorie_article_list' categorie.slug %}">{{ categorie.nom }}</a></li>
                                     </ul>
                                 </div>
                                 {% endfor %}

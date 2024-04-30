@@ -1,4 +1,3 @@
-from django.urls import reverse
 from django.utils import timezone
 from django.conf import settings
 from django.db import models
@@ -56,6 +55,11 @@ class Article(models.Model):
         if not self.slug:
             self.slug = slugify(self.titre)
         super(Article, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        if self.image:
+            self.image.delete()
+        super().delete(*args, **kwargs)
 
 # Commentaires
 class Commentaire(models.Model):

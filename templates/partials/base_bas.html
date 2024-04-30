@@ -1,0 +1,29 @@
+{% load static %}
+
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+        <!-- Inclure jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!-- Script JavaScript pour la confirmation -->
+        <script>
+            $(document).ready(function() {
+                $('#logout-link').click(function(event) {
+                    event.preventDefault(); // Empêcher le lien de déclencher la déconnexion directement
+
+                    // Afficher la boîte de dialogue de confirmation
+                    if (confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
+                        window.location.href = $(this).attr('href'); // Rediriger vers la vue de déconnexion
+                    }
+                });
+            });
+        </script>
+
+        <!-- Start cookieyes banner -->
+        <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/ee440f23c70273f7ec261949/script.js"></script>
+        <!-- End cookieyes banner -->
+
+        <!-- Core theme JS-->
+        {% comment %} <script src="{% static 'static/js/blog_detail.js' %}"></script> {% endcomment %}
+    </body>
+</html>

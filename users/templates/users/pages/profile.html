@@ -5,100 +5,111 @@
 
     {% block content %}
 
-        <div class="container" style="margin: 80px 240px;">
+        <div class="container" style="margin-bottom:80px;margin-top:80px;">
             <div class="row">
-                <div class="col-10">
-                    <div class="card text-center">
-                        {% if messages %}
-                            {% for message in messages %}
-                                <div class="alert alert-{{ message.tags }}" align="center">
-                                    {{ message }}
-                                </div>
-                            {% endfor %}
-                        {% endif %}
-
-                        <div class="card-header d-flex justify-content-between">
-                            {% if user.profile.image %}
-                                <img class="account-img" src="{% static user.profile.image %}" alt="user-profile" style="width: 150px; height: 150px; border-radius:100%;">
-                            {% else %}
-                                <img class="account-img" src="{% static 'images/profile/default.png' %}" alt="default-profile" style="width: 150px; height: 150px; border-radius:100%;">
+                <div class="col-10" style="width: 80%;margin: auto;">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="card text-center">
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="alert alert-{{ message.tags }}" align="center">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
                             {% endif %}
-                            <h1 class="mt-5" >
-                                Profile de {{ user|capfirst }}
-                            </h1>
-                            <span>
-                            <h4 class="mt-5">
-                                {% if user.is_superuser %}
-                                    <p>
-                                        <b>Role :</b> {% comment %} {{ user|capfirst }} est un {% endcomment %}
-                                        <span class="text-primary fw-bolder">Administrateur</span>
-                                    </p>
-                                {% else %}
-                                    <p class="mt-5">
-                                        <b>Role :</b> {% comment %} {{ user|capfirst }} est un {% endcomment %}
-                                        <span class="text-primary fw-bolder">Utilisteur</span>
-                                    </p>
-                                {% endif %}
-                            </h4>
-                        </div>
-                        <div class="card-body d-flex justify-content-between" style="margin:0 0 0 50px;">
-                            <h4 class="card-title">
-                                <p>
-                                    <b>Email :</b> {{ user.email }}
-                                </p>
-                            </h4>
-                            <div class="card-text container" style="margin:0 0 0 50px;">
-                                <h4>Articles de {{ user|capfirst }}</h4>
-                                {% if not user.article_count or user.commentaire_count %}
-                                    <p>
-                                        <b>{{ user }} :</b> a publier
-                                        <span class="text-primary fw-bolder">
-                                            {% if user.article_count %}
-                                                {{ article_count }}
-                                            {% else %}
-                                                0
-                                            {% endif %}
-                                        </span>
-                                        article{{ article_count|pluralize }}
-                                    </p>
 
+                            <div class="card-header d-flex justify-content-between">
+                                {% if user.profile.image %}
+                                    <small>
+                                        <p>
+                                            <img class="account-img" src="{{ user.profile.image.url }}" style="width: 150px; height: 150px;">
+                                        </p>
+                                        <p>
+                                            Supprimer l'image
+                                            <button type="submit" class="btn btn-sm btn-danger" name="delete_image">X</button>
+                                        </p>
+                                    </small>
                                 {% else %}
-                                    <p>
-                                        <b>{{ user }} :</b> n'a pas publié d'articles
-                                    </p>
+                                    <img class="account-img" src="{% static 'images/profile/default.png' %}" alt="default-profile" style="width: 150px; height: 150px;">
                                 {% endif %}
+                                <h1 class="mt-5" >
+                                    Profile de {{ user|capfirst }}
+                                </h1>
+                                <span>
+                                <h4 class="mt-5">
+                                    {% if user.is_superuser %}
+                                        <p>
+                                            <b>Role :</b> {% comment %} {{ user|capfirst }} est un {% endcomment %}
+                                            <span class="text-primary fw-bolder">Administrateur</span>
+                                        </p>
+                                    {% else %}
+                                        <p class="mt-5">
+                                            <b>Role :</b> {% comment %} {{ user|capfirst }} est un {% endcomment %}
+                                            <span class="text-primary fw-bolder">Utilisteur</span>
+                                        </p>
+                                    {% endif %}
+                                </h4>
                             </div>
-                            <div class="card-text container mb-4">
-                                <h4>Commentaires de {{ user|capfirst }}</h4>
-                                {% if not user.article_count or user.commentaire_count %}
+                            <div class="card-body d-flex justify-content-between" style="margin:0 0 0 50px;">
+                                <h4 class="card-title">
                                     <p>
-                                        <b>{{ user }} :</b> a publier
-                                        <span class="text-primary fw-bolder">
-                                            {% if user.commentaire_count %}
-                                                {{ commentaire_count }}
-                                            {% else %}
-                                                0
-                                            {% endif %}
-                                        </span>
-                                        commentaire{{ commentaire_count|pluralize }}
+                                        <b>Email :</b> {{ user.email }}
                                     </p>
-                                {% else %}
-                                    <p>
-                                        <b>{{ user }} :</b> n'a pas publié de commentaires
-                                    </p>
-                                {% endif %}
+                                </h4>
+                                <div class="card-text container" style="margin:0 0 0 50px;">
+                                    <h4>Articles de {{ user|capfirst }}</h4>
+                                    {% if not user.article_count or user.commentaire_count %}
+                                        <p>
+                                            <b>{{ user }} :</b> a publier
+                                            <span class="text-primary fw-bolder">
+                                                {% if user.article_count %}
+                                                    {{ article_count }}
+                                                {% else %}
+                                                    0
+                                                {% endif %}
+                                            </span>
+                                            article{{ article_count|pluralize }}
+                                        </p>
+
+                                    {% else %}
+                                        <p>
+                                            <b>{{ user }} :</b> n'a pas publié d'articles
+                                        </p>
+                                    {% endif %}
+                                </div>
+                                <div class="card-text container mb-4">
+                                    <h4>Commentaires de {{ user|capfirst }}</h4>
+                                    {% if not user.article_count or user.commentaire_count %}
+                                        <p>
+                                            <b>{{ user }} :</b> a publier
+                                            <span class="text-primary fw-bolder">
+                                                {% if user.commentaire_count %}
+                                                    {{ commentaire_count }}
+                                                {% else %}
+                                                    0
+                                                {% endif %}
+                                            </span>
+                                            commentaire{{ commentaire_count|pluralize }}
+                                        </p>
+                                    {% else %}
+                                        <p>
+                                            <b>{{ user }} :</b> n'a pas publié de commentaires
+                                        </p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="card-footer text-muted">
+                                <b>
+                                    Date d'inscription :
+                                </b>
+                                le {{ user.date_joined }}
                             </div>
                         </div>
-                        <div class="card-footer text-muted">
-                            <b>
-                                Date d'inscription :
-                            </b>
-                            le {{ user.date_joined }}
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
-            <div class="col-10">
+            <div class="col-10" style="width: 80%;margin: auto;">
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <fieldset class="form-group">
@@ -108,7 +119,7 @@
                     </fieldset>
                     <div class="form-group">
                         <button class="btn btn-outline-primary" type="submit">Mettre à jour</button>
-                        <a class="btn btn-outline-warning" href="{% url 'reset_mot2passe' %}">Réinitialiser votre mot de passe</a></span>
+                        <a class="btn btn-outline-warning" href="{% url 'users:reset_mot2passe' %}">Réinitialiser votre mot de passe</a></span>
                     </div>
                 </form>
             </div>
